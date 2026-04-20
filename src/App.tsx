@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { AppLayout } from './components/layout/AppLayout';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -14,6 +15,7 @@ function App() {
     <AuthProvider>
       <LocationProvider>
         <BrowserRouter>
+          <Toaster position="top-center" />
           <Routes>
             <Route path="/login" element={<Auth />} />
             
