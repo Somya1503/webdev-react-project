@@ -41,12 +41,12 @@ export const Emergency = () => {
 
   return (
     <div className="p-6 max-w-2xl mx-auto w-full">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Request Emergency Help</h1>
+      <h1 className="text-2xl font-bold text-slate-50 mb-6">Request Emergency Help</h1>
       
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6">
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Emergency Type</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Emergency Type</label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {['Blood', 'Oxygen', 'Ambulance', 'Other'].map((t) => (
                 <button
@@ -55,8 +55,8 @@ export const Emergency = () => {
                   onClick={() => setType(t)}
                   className={`px-4 py-3 rounded-xl border text-sm font-medium transition-all ${
                     type === t 
-                      ? 'border-red-500 bg-red-50 text-red-700' 
-                      : 'border-gray-200 text-gray-700 hover:border-red-300'
+                      ? 'border-red-500 bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.3)]' 
+                      : 'border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200'
                   }`}
                 >
                   {t}
@@ -66,20 +66,20 @@ export const Emergency = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Urgency Level</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Urgency Level</label>
             <select 
               value={urgency}
               onChange={(e) => setUrgency(e.target.value)}
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md border"
+              className="mt-1 block w-full pl-3 pr-10 py-3 text-base border-slate-700 bg-slate-950 text-slate-50 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-xl border"
             >
-              <option value="Critical">Critical (Life Threatening)</option>
-              <option value="High">High (Need within hours)</option>
-              <option value="Medium">Medium (Need within a day)</option>
+              <option value="Critical" className="bg-slate-900">Critical (Life Threatening)</option>
+              <option value="High" className="bg-slate-900">High (Need within hours)</option>
+              <option value="Medium" className="bg-slate-900">Medium (Need within a day)</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Location</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -93,13 +93,13 @@ export const Emergency = () => {
                         ? `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}` 
                         : 'Location unavailable'
                 }
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500 sm:text-sm"
+                className="flex-1 px-4 py-3 border border-slate-700 rounded-xl shadow-inner bg-slate-950 text-slate-400 sm:text-sm"
               />
               <button
                 type="button"
                 onClick={refreshLocation}
                 disabled={isLocationLoading}
-                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+                className="px-4 py-3 border border-slate-700 shadow-sm text-sm font-medium rounded-xl text-slate-300 bg-slate-800 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 transition-colors"
               >
                 Locate Me
               </button>
