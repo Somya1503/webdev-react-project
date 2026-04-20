@@ -9,6 +9,7 @@ interface AuthContextType {
   isLoading: boolean;
   logout: () => Promise<void>;
   sessionUser: SupabaseUser | null;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -75,8 +76,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   };
 
+  const refreshUser = async () => {
+    if (sessionUser) {
+      await fetchUserProfile(sessionUser.id);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user: appUser, sessionUser, isAuthenticated: !!sessionUser, isLoading, logout }}>
+    <AuthContext.Provider value={{ user: appUser, sessionUser, isAuthenticated: !!sessionUser, isLoading, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
