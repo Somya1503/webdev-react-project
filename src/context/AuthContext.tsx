@@ -20,20 +20,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     // Fetch initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: any) => {
       setSessionUser(session?.user ?? null);
       if (session?.user) {
         fetchUserProfile(session.user.id);
       } else {
         setIsLoading(false);
       }
-    }).catch(err => {
+    }).catch((err: any) => {
       console.error('Session fetch error:', err);
       setIsLoading(false);
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       setSessionUser(session?.user ?? null);
       if (session?.user) {
         fetchUserProfile(session.user.id);
