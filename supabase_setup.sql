@@ -54,6 +54,16 @@ CREATE POLICY "Requester can update own emergency" ON public.emergency_requests 
 -- Responses
 CREATE POLICY "Anyone can view responses" ON public.request_responses FOR SELECT USING (true);
 CREATE POLICY "Volunteers can create responses" ON public.request_responses FOR INSERT WITH CHECK (auth.uid() = volunteer_id);
+CREATE POLICY "Volunteers can update own responses" ON public.request_responses FOR UPDATE USING (auth.uid() = volunteer_id);
+
+-- Allow volunteers to mark emergencies as resolved if they have accepted it
+CREATE POLICY "Volunteers can resolve emergencies" ON public.emergency_requests FOR UPDATE USING (
+  EXISTS (
+    SELECT 1 FROM public.request_responses
+    WHERE request_responses.request_id = emergency_requests.id
+    AND request_responses.volunteer_id = auth.uid()
+  )
+);
 
 -- Enable Realtime for emergency requests and responses
 ALTER PUBLICATION supabase_realtime ADD TABLE public.emergency_requests;
