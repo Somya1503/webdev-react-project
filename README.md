@@ -4,6 +4,8 @@ HyperRescue is a real-time, hyperlocal emergency response web application design
 
 Built with a focus on speed and reliability, the platform allows users to broadcast location-based SOS alerts for urgent resources such as blood, oxygen, or medical assistance. Using advanced geospatial queries, the system instantly notifies registered volunteers within the vicinity, bypassing the delays of traditional emergency dispatch systems.
 
+🌟 **Live Demo:** [https://webdev-react-project-amber.vercel.app/](https://webdev-react-project-amber.vercel.app/)
+
 ![HyperRescue Preview](https://via.placeholder.com/1000x500.png?text=HyperRescue+Dashboard) <!-- Replace with actual screenshot later -->
 
 ## Key Features
