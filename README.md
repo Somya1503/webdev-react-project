@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# HyperRescue (Emergency Resource Finder) 🚨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HyperRescue is a real-time, hyperlocal emergency response web application designed to instantly connect people in critical need with nearby volunteers.
 
-Currently, two official plugins are available:
+Built with a focus on speed and reliability, the platform allows users to broadcast location-based SOS alerts for urgent resources such as blood, oxygen, or medical assistance. Using advanced geospatial queries, the system instantly notifies registered volunteers within the vicinity, bypassing the delays of traditional emergency dispatch systems.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![HyperRescue Preview](https://via.placeholder.com/1000x500.png?text=HyperRescue+Dashboard) <!-- Replace with actual screenshot later -->
 
-## React Compiler
+## Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Live Interactive Dashboard**: A real-time command center featuring a sleek Dark Mode map that visualizes active emergencies around the user's current location.
+- **Volunteer Kanban System**: A dynamic, synchronized task board that allows responders to accept, track, and complete missions. Status changes update instantly across all active clients.
+- **Hyperlocal Matching**: Utilizes precise geolocation to filter out irrelevant noise, ensuring volunteers only see actionable alerts within a 20km radius.
+- **Secure Authentication & Profiles**: Built-in user management with role-based access control, availability toggling, and blood type tracking.
+- **Premium Dark Mode UI**: A highly modern, immersive aesthetic utilizing glassmorphism and tailored slate color palettes.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- **React.js (Vite)**: Fast, modern UI development.
+- **Tailwind CSS**: Utility-first styling for the premium Dark Mode aesthetic.
+- **React-Leaflet**: Interactive map rendering using CartoDB Dark Matter tiles.
+- **React Router**: Seamless Single Page Application (SPA) navigation.
+- **Lucide React**: Clean, modern iconography.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend & Database
+- **Supabase**: Open-source Firebase alternative.
+- **PostgreSQL**: Highly reliable relational database.
+- **PostGIS**: Advanced database extension used for complex geospatial distance calculations (`ST_Distance`, `ST_DWithin`).
+- **Supabase Realtime**: WebSocket-based subscriptions to instantly sync the Kanban board and map across all browsers.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Architecture & Database Security
+The application leverages Supabase's **Row Level Security (RLS)** to ensure data privacy and integrity:
+- Users can only create emergency requests for themselves.
+- Volunteers can only accept and resolve emergencies through the secure `request_responses` linking table.
+- Volunteers cannot maliciously mark an emergency as resolved unless they have officially accepted the task.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Getting Started
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+- A Supabase Project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Somya1503/webdev-react-project.git
+   cd webdev-react-project
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. Database Setup:
+   Run the SQL provided in `supabase_setup.sql` in your Supabase SQL Editor to create the necessary tables, functions, and RLS policies.
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Deployment
+This project is configured for seamless deployment on **Vercel**. Ensure that you add the Supabase Environment Variables to your Vercel project settings during deployment.
