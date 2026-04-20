@@ -43,6 +43,7 @@ ALTER TABLE public.request_responses ENABLE ROW LEVEL SECURITY;
 -- Basic RLS Policies (For Development MVP)
 -- Users can read their own profile, volunteers can read all profiles
 CREATE POLICY "Users can view profiles" ON public.users FOR SELECT USING (true);
+CREATE POLICY "Users can insert own profile" ON public.users FOR INSERT WITH CHECK (auth.uid() = id);
 CREATE POLICY "Users can update own profile" ON public.users FOR UPDATE USING (auth.uid() = id);
 
 -- Anyone authenticated can view active emergencies
