@@ -79,7 +79,7 @@ export const Volunteer = () => {
         .select('id')
         .eq('requester_id', user.id);
       
-      const ownRequestIds = new Set((ownRequests || []).map(r => r.id));
+      const ownRequestIds = new Set((ownRequests || []).map((r: any) => r.id));
 
       const filteredAlerts = nearbyData.filter((em: any) => !respondedRequestIds.has(em.id) && !ownRequestIds.has(em.id));
       setNewAlerts(filteredAlerts);

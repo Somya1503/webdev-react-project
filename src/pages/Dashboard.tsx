@@ -75,7 +75,7 @@ export const Dashboard = () => {
     // Subscribe to all realtime events for emergency requests
     const channel = supabase
       .channel('public:emergency_requests')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'emergency_requests' }, (payload) => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'emergency_requests' }, (payload: any) => {
          if (payload.eventType === 'INSERT') {
            toast.error('New Emergency Nearby!', { icon: '🚨' });
          }
